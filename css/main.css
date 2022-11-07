@@ -1,0 +1,93 @@
+/* タイトル */
+h1 {
+  position: absolute;
+  left: 20px;
+  z-index: 100;
+  color: yellow;
+  font-size: 24px;
+
+}
+
+/* body全体の設定 */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 960px;
+  background-color: black;
+}
+
+/* スタートボタン */
+#btn {
+  width: 80px;
+  height: 80px;
+  background-color: rgb(91, 197, 239);
+  font-size: 24px;
+  border-radius: 40px;
+  color: white;
+  position: absolute;
+  top: 120px;
+  left: 30px;
+
+}
+
+/* 選択肢 */
+ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-top: 530px;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  width: 200px;
+  height: 50px;
+  margin: 10px;
+  background-color: rgb(78, 220, 12);
+  border: 6px outset rgb(78, 220, 12);
+  font-size: 20px;
+  border-radius: 20px;
+}
+
+/* 正解を表示 */
+#result {
+  font-size: 22px;
+  color: black;
+  position: absolute;
+  top: 120px;
+  left: 580px;
+}
+
+/* 問題文 */
+#question {
+  position: absolute;
+  top: 450px;
+  font-size: 26px;
+
+}
+
+/* 背景動画 */
+#video-area {
+  position: fixed;
+  z-index: -1;
+  margin: 0 auto;
+
+}
+
+video img {
+  height: 80%;
+}
+
+/* 正解数 */
+#score {
+  position: absolute;
+  top: 240px;
+  left: 660px;
+  font-size: 40px;
+}

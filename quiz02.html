@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+  <h1>USAGI<br>タイムショック</h1>
+  <input type="button" value="開始‼︎" id="btn" onclick="video_play()">
+  <!-- <p>第 n 問</p> -->
+  <div id="video-area">
+    <video id="video" src="/video.mp4" poster="/img/imageofmovie.png" width="960px">
+
+    </video>
+  </div>
+  <p id="question"></p>
+
+  <ul>
+    <li><button id="answer00">0</button></li>
+    <li><button id="answer01">1</button></li>
+    <li><button id="answer02">2</button></li>
+  </ul>
+
+  <p>結果</p>
+  <p id="result"></p>
+  <audio id="correct-audio">
+    <source src="/audio/クイズ正解2.mp3" type="audio/mp3">
+  </audio>
+  <p id="score"></p>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script>
+    // スタートボタンをクリックすると背景の動画が再生開始する
+    // スタートボタンをクリックするとボタンは消える
+    function video_play() {
+      video.play();
+    };
+    $("#btn").on("click", function () {
+      btn.style.display = "none"
+    })
+
+    // クイズの問題の配列
+    const quiz = [
+      {
+        question: 'うさぎの視野は約何度？',
+        answers: ['180度', '270度', '360度'],
+        correct: 2,
+      },
+      {
+        question: 'うさぎには肉球が..',
+        answers: ['ある', 'ない', '前足のみある'],
+        correct: 1,
+      },
+      {
+        question: 'うさぎには声帯が..',
+        answers: ['ある', 'ない', '雄にのみある'],
+        correct: 1,
+      },
+
+      {
+        question: '数学に関する問題です。「うさぎ算」別の言い方は？',
+        answers: ['連立方程式', 'インテグラル', 'フィボナッチ数列'],
+        correct: 2,
+      },
+      {
+        question: '英語で子犬はpuppy、子うさぎは？',
+        answers: ['rabby', 'bunny', 'kitty'],
+        correct: 1,
+      },
+
+      {
+        question: 'ミッフィーのふるさとはどこの国？',
+        answers: ['デンマーク', 'イギリス', 'オランダ'],
+        correct: 2,
+      },
+      {
+        question: 'うさぎが食べると中毒を起こす恐れのある野菜は？',
+        answers: ['インゲン豆', 'ブロッコリー', 'ラディッシュ'],
+        correct: 0,
+      },
+      {
+        question: '今、何問目？',
+        answers: ['7問目', '8問目', '9問目'],
+        correct: 1,
+      },
+
+      {
+        question: 'うさぎを飼っている有名人といえば？',
+        answers: ['あいみょん', '中尾彬', '羽生善治'],
+        correct: 2,
+      },
+      {
+        question: '福岡県にあるウサギカフェ、所在地はどこ？',
+        answers: ['福岡市', '春日市', '久留米市'],
+        correct: 1,
+      },
+      {
+        question: '故事成語「兎兵法」意味は？',
+        answers: ['役に立たない', '周到な計画', '弱肉強食'],
+        correct: 0,
+      },
+      {
+        question: 'うさぎの平均寿命は',
+        answers: ['1年', '3年', '7年'],
+        correct: 2,
+      },
+    ];
+
+
+    // 結果記録用、正解数カウント用の配列を用意
+    const result = [];
+    const correctresult = [];
+
+    // スタートボタンを押した３秒後に問題文表示
+    let btn = document.getElementById("btn");
+    btn.addEventListener("click", function () {
+      window.setTimeout(function () {
+
+
+
+        // 問題文の表示
+        $("#question").text(quiz[result.length].question);
+
+        // 選択肢の表示
+        $("#question").text(quiz[result.length].question);
+        $("#answer00").text(quiz[result.length].answers[0]);
+        $("#answer01").text(quiz[result.length].answers[1]);
+        $("#answer02").text(quiz[result.length].answers[2]);
+
+        // `value`の設定
+        $("#answer00").val(0);
+        $("#answer01").val(1);
+        $("#answer02").val(2);
+
+      }, 3000);
+    });
+
+
+    $("button").on("click", function (e) {
+      // 正解の場合
+      if (Number(e.target.value) === quiz[result.length].correct) {
+        $("#result").text(quiz[result.length].answers[quiz[result.length].correct]);
+        // console.log(quiz[result.length].answers[quiz[result.length].correct]);
+        // 結果を配列に追加
+        result.push("ok");
+        // 結果を正解数の配列に追加
+        correctresult.push("ok");
+        // 正解数を画面に表示
+        $("#score").text(correctresult.length);
+        // 正解の音を鳴らす
+        $("#correct-audio").get(0).play();
+
+        // 不正解の場合
+      } else {
+        $("#result").text(quiz[result.length].answers[quiz[result.length].correct]);
+        // 結果を配列に追加
+        result.push("ng");
+      }
+
+      // 問題文と選択肢を更新
+      if (result.length < 12) {
+        $("#question").text(quiz[result.length].question);
+        $("#answer00").text(quiz[result.length].answers[0]);
+        $("#answer01").text(quiz[result.length].answers[1]);
+        $("#answer02").text(quiz[result.length].answers[2]);
+
+
+
+      };
+
+      if (result.length == 12) {
+        $("#question").text("");
+        $("#answer00").text("");
+        $("#answer01").text("");
+        $("#answer02").text("");
+
+      };
+
+      // setInterval(() => {
+      // $("#question").text(quiz[result.length + 1].question),
+      // $("#answer00").text(quiz[result.length + 1].answers[0]),
+      // $("#answer01").text(quiz[result.length + 1].answers[1]),
+      // $("#answer02").text(quiz[result.length + 1].answers[2])
+
+
+      // }, 5000);
+
+
+      // }
+    });
+
+
+    // console.log(correctresult);
+
+  </script>
+
+</body>
+
+</html>
